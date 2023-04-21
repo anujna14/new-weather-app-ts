@@ -8,10 +8,8 @@ const SearchContainer = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const searchContext = useContext(SearchContext) as SearchContextType;
 
-  // console.log(searchContext);
 
   const handleSearchSubmit = (e: React.FormEvent, searchString: string) => {
-    // console.log("INsside serach container");
     e.preventDefault();
     searchContext.handleSearchedValue(searchString);
     setSearchValue("");

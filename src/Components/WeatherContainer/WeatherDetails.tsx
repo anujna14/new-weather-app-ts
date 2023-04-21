@@ -1,10 +1,12 @@
-import { Box, IconButton, Stack, styled, Typography } from "@mui/material";
-import React from "react";
+import { Box, Stack, styled, Typography } from "@mui/material";
+import React, { useContext } from "react";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import AirIcon from "@mui/icons-material/Air";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import ThunderstormIcon from "@mui/icons-material/Thunderstorm";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { WeatherContext } from "../../Context/WeatherContext";
+import { WeatherContextType } from "../../types/WeatherTypes";
 
 const WeatherContainerBox = styled(Box)({
   borderTop: "1px solid #ccc",
@@ -17,46 +19,48 @@ const WeatherContainerBox = styled(Box)({
 });
 
 const TypographyStyle = styled(Typography)({
-    fontSize: "22px"
-
-})
+  fontSize: "22px",
+});
 
 const WeatherDetails = () => {
+  const { weatherDetails } = useContext(WeatherContext) as WeatherContextType;
   return (
     <WeatherContainerBox>
       <Box sx={{ display: "flex" }}>
         <ThermostatIcon sx={{ fontSize: "50px", paddingRight: "12px" }} />
         <Stack>
           <TypographyStyle>Min - Max</TypographyStyle>
-          <Typography component="span">75&deg; - 90&deg;</Typography>
+          <Typography component="span">
+            {weatherDetails?.main?.temp_min}&deg; - {weatherDetails?.main?.temp_max}&deg;
+          </Typography>
         </Stack>
       </Box>
       <Box sx={{ display: "flex" }}>
         <AirIcon sx={{ fontSize: "50px", paddingRight: "12px" }} />
         <Stack>
-          <TypographyStyle>Precipitation</TypographyStyle>
-          <Typography>0%</Typography>
+          <TypographyStyle>Feels Like</TypographyStyle>
+          <Typography>{weatherDetails?.main?.feels_like}</Typography>
         </Stack>
       </Box>
       <Box sx={{ display: "flex", padding: "12px 26px" }}>
         <WaterDropIcon sx={{ fontSize: "50px", paddingRight: "12px" }} />
         <Stack>
           <TypographyStyle>Humidity</TypographyStyle>
-          <Typography>47%</Typography>
+          <Typography>{weatherDetails?.main?.humidity} %</Typography>
         </Stack>
       </Box>
       <Box sx={{ display: "flex" }}>
         <ThunderstormIcon sx={{ fontSize: "50px", paddingRight: "12px" }} />
         <Stack>
           <TypographyStyle>Wind</TypographyStyle>
-          <Typography>4 mph</Typography>
+          <Typography>{weatherDetails?.wind?.speed} mph</Typography>
         </Stack>
       </Box>
       <Box sx={{ display: "flex" }}>
         <VisibilityIcon sx={{ fontSize: "50px", paddingRight: "12px" }} />
         <Stack>
           <TypographyStyle>Visibility</TypographyStyle>
-          <Typography>12mph</Typography>
+          <Typography>{weatherDetails?.visibility ? weatherDetails.visibility / 1000 : 0} mph</Typography>
         </Stack>
       </Box>
     </WeatherContainerBox>
