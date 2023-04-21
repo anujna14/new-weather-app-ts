@@ -11,7 +11,6 @@ const SearchContextProvider = ({ children }: ChildrenPropType) => {
   const [searchedValue, setsearchedValue] = useState<string>("");
 
   const handleSearchedValue = (searchVal: string) => {
-    console.log("searchVal", searchVal);
     setsearchedValue(searchVal);
   };
   return <SearchContext.Provider value={{ searchedValue, handleSearchedValue }}>{children}</SearchContext.Provider>;

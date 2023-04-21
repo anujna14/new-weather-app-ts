@@ -48,7 +48,11 @@ export interface ForecastType {
 export type WeatherContextType = {
   weatherDetails: ForecastType | null;
   addWeatherDetails: (weather: ForecastType) => void;
-//   isFavourite: (id: number) => void;
+  changeFavouriteState: (weatherDetails: ForecastType) => void;
+  favourites: Array<ForecastType | null >;
+  addToFavourite: (weatherDetails: ForecastType) => void
+  removeFavourite: (id: number) => void
+  removeAllFav: () => void
 };
 
 
