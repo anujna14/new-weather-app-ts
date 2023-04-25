@@ -1,5 +1,5 @@
 import { Box, Stack, styled, Typography } from "@mui/material";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import AirIcon from "@mui/icons-material/Air";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
@@ -24,7 +24,9 @@ const TypographyStyle = styled(Typography)({
 
 const WeatherDetails = () => {
   const { weatherDetails } = useContext(WeatherContext) as WeatherContextType;
-  return (
+  return !weatherDetails ? (
+    <h1>{}</h1>
+  ) : (
     <WeatherContainerBox>
       <Box sx={{ display: "flex" }}>
         <ThermostatIcon sx={{ fontSize: "50px", paddingRight: "12px" }} />

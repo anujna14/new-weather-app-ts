@@ -1,6 +1,6 @@
 import { AppBar, CssBaseline, Toolbar, Typography, styled, Divider } from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { getTodayDate } from "../../utilities/CurrentDate";
 
 const AppContainer = styled(AppBar)({
@@ -12,29 +12,87 @@ const AppContainer = styled(AppBar)({
 });
 
 const NavBar = () => {
+  const [currentValue, setCurrentValue] = useState({
+    day: "",
+    date: 0,
+    month: "",
+    year: 0,
+    time: "",
+  });
+  useEffect(() => {
+    const timer = setInterval(() => {
+      getTheCurrentValues();
+    }, 60000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const getTheCurrentValues = () => {
+    const response = getTodayDate();
+    setCurrentValue({
+      day: response.currentDay,
+      date: response.currentDate,
+      month: response.currentMonth,
+      year: response.currentYear,
+      time: response.currentTime,
+    });
+  };
+
   return (
     <AppContainer elevation={0} position="static">
       <CssBaseline />
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <div style={{ display: "flex" }}>
-          <Link style={{ padding: "0px 12px", color: "#fff", textDecoration: "none", fontSize: "20px" }} to="/">
+          <NavLink
+            style={({ isActive }) => ({
+              color: isActive ? "#FED738" : "#fff",
+              padding: "10px 12px 22px 12px",
+              textDecoration: "none",
+              letterSpacing: "1.5px",
+              marginRight: "4px",
+              fontSize: "20px",
+              borderBottom: isActive ? "2px solid #FED738" : "none",
+            })}
+            to="/"
+          >
             Home
-          </Link>
-          <Link style={{ padding: "0px 12px", color: "#fff", textDecoration: "none", fontSize: "20px" }} to="/favourite">
-            Fovourites
-          </Link>
-          <Link style={{ padding: "0px 12px", color: "#fff", textDecoration: "none", fontSize: "20px" }} to="/recentsearch">
+          </NavLink>
+          <NavLink
+            style={({ isActive }) => ({
+              color: isActive ? "#FED738" : "#fff",
+              padding: "10px 12px 22px 12px",
+              textDecoration: "none",
+              fontSize: "20px",
+              letterSpacing: "1.5px",
+              marginRight: "4px",
+              borderBottom: isActive ? "2px solid #FED738" : "none",
+            })}
+            to="/favourite"
+          >
+            Favourites
+          </NavLink>
+          <NavLink
+            style={({ isActive }) => ({
+              color: isActive ? "#FED738" : "#fff",
+              padding: "10px 12px 22px 12px",
+              textDecoration: "none",
+              letterSpacing: "1.5px",
+              marginRight: "4px",
+              fontSize: "20px",
+              borderBottom: isActive ? "2px solid #FED738" : "none",
+            })}
+            to="/recentsearch"
+          >
             Recent Search
-          </Link>
+          </NavLink>
         </div>
         <div>
-          <Typography component="span">{getTodayDate().currentDay}, </Typography>
-          <Typography component="span">{getTodayDate().currentDate} </Typography>
-          <Typography component="span">{getTodayDate().currentMonth} </Typography>
+          <Typography component="span">{currentValue.day}, </Typography>
+          <Typography component="span">{currentValue.date} </Typography>
+          <Typography component="span">{currentValue.month} </Typography>
           <Typography component="span" sx={{ paddingRight: "10px" }}>
-            {getTodayDate().currentYear}{" "}
+            {currentValue.year}{" "}
           </Typography>
-          <Typography component="span">{getTodayDate().currentTime}</Typography>
+          <Typography component="span">{currentValue.time}</Typography>
         </div>
       </Toolbar>
       <Divider color="#ccc" />

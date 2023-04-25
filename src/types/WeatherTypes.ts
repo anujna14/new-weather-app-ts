@@ -53,6 +53,7 @@ export type WeatherContextType = {
   addToFavourite: (weatherDetails: ForecastType) => void
   removeFavourite: (id: number) => void
   removeAllFav: () => void
+  removeRecentSearch: () => void
 };
 
 
