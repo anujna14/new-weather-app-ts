@@ -17,7 +17,7 @@ const WeatherProvider = ({ children }: ChildrenPropType) => {
   }, [items]);
 
   const changeFavouriteState = (weatherDetails: ForecastType) => {
-    setWeatherDetails({ ...weatherDetails, isFavourite: !weatherDetails.isFavourite });
+    setWeatherDetails({ ...weatherDetails, isFavourite: true });
   };
 
   const addToFavourite = (weatherDetails: ForecastType) => {

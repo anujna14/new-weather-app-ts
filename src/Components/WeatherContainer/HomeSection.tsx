@@ -27,9 +27,7 @@ const HomeSection = () => {
     fahrenheit: "",
   });
   const { searchedValue } = useContext(SearchContext) as SearchContextType;
-  const { weatherDetails, addWeatherDetails, changeFavouriteState, addToFavourite, removeFavourite } = useContext(
-    WeatherContext
-  ) as WeatherContextType;
+  const { weatherDetails, addWeatherDetails, addToFavourite, removeFavourite } = useContext(WeatherContext) as WeatherContextType;
 
   useEffect(() => {
     getWeatherDetails();
@@ -51,12 +49,13 @@ const HomeSection = () => {
   let weatherUrl = `https://openweathermap.org/img/wn/${weatherDetails?.weather[0]?.icon}@2x.png`;
 
   const handleAddtoFav = (weatherDetails: ForecastType) => {
-    changeFavouriteState(weatherDetails);
-    removeFavourite(weatherDetails?.id);
+    addWeatherDetails({ ...weatherDetails, isFavourite: true });
+    addToFavourite({ ...weatherDetails, isFavourite: true });
   };
   const removeFav = (weatherDetails: ForecastType) => {
-    changeFavouriteState(weatherDetails);
-    addToFavourite(weatherDetails);
+    console.log("Am calling in....");
+    addWeatherDetails({ ...weatherDetails, isFavourite: false });
+    removeFavourite(weatherDetails?.id);
   };
 
   const convertToFahrenheit = (celsius: number) => {
@@ -74,7 +73,7 @@ const HomeSection = () => {
   };
 
   return !weatherDetails ? (
-    <NoContentFound message="No Result Found, Please Enter a city!!"/>
+    <NoContentFound message="No Result Found, Please Enter a city!!" />
   ) : (
     <>
       <Box sx={{ padding: "20px", margin: "20px" }}>
@@ -83,7 +82,7 @@ const HomeSection = () => {
           {weatherDetails.isFavourite ? (
             <>
               <IconButton>
-                <FavoriteIcon sx={{ color: "#F6BA6F" }} onClick={() => handleAddtoFav(weatherDetails)} />
+                <FavoriteIcon sx={{ color: "#F6BA6F" }} onClick={() => removeFav(weatherDetails)} />
               </IconButton>
               <Typography component="span" sx={{ color: "#F6BA6F" }}>
                 Added to Favourite
@@ -92,7 +91,7 @@ const HomeSection = () => {
           ) : (
             <>
               <IconButton>
-                <FavoriteBorderIcon sx={{ color: "#F6BA6F" }} onClick={() => removeFav(weatherDetails)} />
+                <FavoriteBorderIcon sx={{ color: "#F6BA6F" }} onClick={() => handleAddtoFav(weatherDetails)} />
               </IconButton>
               <Typography component="span" sx={{ color: "#F6BA6F" }}>
                 Add to Favourite
@@ -103,7 +102,7 @@ const HomeSection = () => {
       </Box>
       <Box>
         <Card elevation={0} sx={{ background: "transparent" }}>
-          <CardMedia sx={{ height: 100, width: 150, left: 0, margin: "0 auto", color: "#fff" }} image={weatherUrl} title="url" />
+          <CardMedia sx={{ height: 100, width: 150, left: 0, margin: "0 auto", color: "#fff" }} image={weatherUrl} color="#fff" title="url" />
           <Box sx={{ textAlign: "center" }}>
             {!fahrenheit.isFahrenheit ? (
               <Typography component="span" sx={{ fontSize: "60px", display: "inline-block", color: "#fff", fontWeight: "Bold" }}>

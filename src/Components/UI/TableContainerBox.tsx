@@ -38,7 +38,9 @@ const TableContainerBox = ({ value, handleRemoveAll, removeString }: PropType) =
         <Button onClick={handleRemove} variant="text" sx={{ color: "#fff", paddingRight: "80px" }}>
           Remove All
         </Button>
-        {openModal && <Modal openVal={openModal} setOpenModel={setOpenModel} handleClose={handleClose} removeAllFav={handleRemoveAll} message={removeString}/>}
+        {openModal && (
+          <Modal openVal={openModal} setOpenModel={setOpenModel} handleClose={handleClose} removeAllFav={handleRemoveAll} message={removeString} />
+        )}
       </Box>
       <TableContainer component={Paper} elevation={0} sx={{ padding: "60px", background: "transparent", maxHeight: "400px", overflowY: "scroll" }}>
         <Table
@@ -70,11 +72,11 @@ const TableContainerBox = ({ value, handleRemoveAll, removeString }: PropType) =
                 <TableCell align="left" sx={{ color: "#fff" }}>
                   {fav?.isFavourite ? (
                     <IconButton>
-                      <FavoriteBorderIcon />
+                      <FavoriteIcon onClick={() => handleRemoveFav(fav?.id!)} sx={{ color: "#F6BA6F" }} />
                     </IconButton>
                   ) : (
                     <IconButton>
-                      <FavoriteIcon onClick={() => handleRemoveFav(fav?.id!)} sx={{ color: "#F6BA6F" }} />
+                      <FavoriteBorderIcon sx={{ color: "#F6BA6F" }} />
                     </IconButton>
                   )}
                 </TableCell>
