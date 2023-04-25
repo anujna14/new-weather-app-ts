@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import RecentSearchContainer from "../Components/RecentSearch/RecentSearchContainer";
 
 const RecentSearch = () => {
-  return (
-    <div>ResentSearch</div>
-  )
-}
+  return <RecentSearchContainer />;
+};
 
-export default RecentSearch
+export default RecentSearch;

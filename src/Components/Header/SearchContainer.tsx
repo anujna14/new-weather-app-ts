@@ -29,8 +29,8 @@ const SearchContainer = () => {
           width: {
             xs: 200,
             sm: 300,
-            md: 400,
-            lg: 600,
+            md: 350,
+            lg: 500,
           },
           margin: "0 auto",
           background: "transparent",
