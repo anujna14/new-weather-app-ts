@@ -13,9 +13,10 @@ type PropType = {
 };
 const TableContainerBox = ({ value, handleRemoveAll, removeString }: PropType) => {
   const [openModal, setOpenModel] = useState<boolean>(false);
-  const { removeFavourite } = useContext(WeatherContext) as WeatherContextType;
+  const { removeFavourite, addWeatherDetails } = useContext(WeatherContext) as WeatherContextType;
 
-  const handleRemoveFav = (id: number) => {
+  const handleRemoveFav = (weatherDetails: ForecastType, id: number) => {
+    addWeatherDetails({ ...weatherDetails, isFavourite: false });
     removeFavourite(id);
   };
 
@@ -54,7 +55,7 @@ const TableContainerBox = ({ value, handleRemoveAll, removeString }: PropType) =
           aria-label="simple table"
         >
           <TableBody>
-            {filtered.map((fav) => (
+            {filtered.reverse().map((fav) => (
               <TableRow key={fav?.id} sx={{ "&:last-child td, &:last-child th": { border: 0 }, color: "#fff" }}>
                 <TableCell component="th" scope="row"></TableCell>
                 <TableCell style={{ maxWidth: 100 }} align="left" sx={{ color: "#fff", fontWeight: "Bold", fontSize: "20px" }}>
@@ -72,7 +73,7 @@ const TableContainerBox = ({ value, handleRemoveAll, removeString }: PropType) =
                 <TableCell align="left" sx={{ color: "#fff" }}>
                   {fav?.isFavourite ? (
                     <IconButton>
-                      <FavoriteIcon onClick={() => handleRemoveFav(fav?.id!)} sx={{ color: "#F6BA6F" }} />
+                      <FavoriteIcon onClick={() => handleRemoveFav(fav, fav?.id!)} sx={{ color: "#F6BA6F" }} />
                     </IconButton>
                   ) : (
                     <IconButton>
