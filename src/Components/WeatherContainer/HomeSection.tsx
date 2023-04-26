@@ -26,11 +26,7 @@ const HomeSection = () => {
     isFahrenheit: false,
     fahrenheit: "",
   });
-<<<<<<< HEAD
   const { searchedValue, handleSearchedValue } = useContext(SearchContext) as SearchContextType;
-=======
-  const { searchedValue } = useContext(SearchContext) as SearchContextType;
->>>>>>> dd6a7f1c2f75e7b3d0d68656a5057b7798905d04
   const { weatherDetails, addWeatherDetails, addToFavourite, removeFavourite } = useContext(WeatherContext) as WeatherContextType;
 
   useEffect(() => {
