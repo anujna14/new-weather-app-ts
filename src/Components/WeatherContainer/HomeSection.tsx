@@ -26,7 +26,7 @@ const HomeSection = () => {
     isFahrenheit: false,
     fahrenheit: "",
   });
-  const { searchedValue } = useContext(SearchContext) as SearchContextType;
+  const { searchedValue, handleSearchedValue } = useContext(SearchContext) as SearchContextType;
   const { weatherDetails, addWeatherDetails, addToFavourite, removeFavourite } = useContext(WeatherContext) as WeatherContextType;
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const HomeSection = () => {
     try {
       let response = await axios.get(`${REACT_APP_WEB_URL}?q=${searchedValue}&appid=${REACT_APP_WEATHER_API_KEY}&units=metric`);
       addWeatherDetails({ ...response.data, isFavourite: false });
+      handleSearchedValue("")
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return error.message;
@@ -53,7 +54,6 @@ const HomeSection = () => {
     addToFavourite({ ...weatherDetails, isFavourite: true });
   };
   const removeFav = (weatherDetails: ForecastType) => {
-    console.log("Am calling in....");
     addWeatherDetails({ ...weatherDetails, isFavourite: false });
     removeFavourite(weatherDetails?.id);
   };
